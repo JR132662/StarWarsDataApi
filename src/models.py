@@ -18,11 +18,10 @@ class User(db.Model):
             "is_active": self.is_active,
         }
 class Character(db.Model):
-    __tablename__ = 'character'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    haircolor = Column(String)
-    eyecolor = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    haircolor = db.Column(db.String(20))
+    eyecolor = db.Column(db.String(20))
 
     def serialize(self):
         return {
@@ -33,10 +32,9 @@ class Character(db.Model):
         }
 
 class Planet(db.Model):
-    __tablename__ = 'planet'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    climate = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    climate = db.Column(db.String(20))
 
     def serialize(self):
         return {
@@ -46,14 +44,13 @@ class Planet(db.Model):
         }
 
 class Favorite(db.Model):
-    __tablename__ = 'favorite'
-    id = Column(Integer, primary_key=True)
-    character = relationship(Character)
-    character_id = Column(Integer, ForeignKey('character.id'),nullable=True)
-    planet = relationship(Planet)
-    planet_id = Column(Integer, ForeignKey('planet.id'),nullable=True)
-    user = relationship(User)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    character = db.relationship(Character)
+    character_id = db.Column(db.Integer, db.ForeignKey('character.id'),nullable=True)
+    planet = db.relationship(Planet)
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'),nullable=True)
+    user = db.relationship(User)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def serialize(self):
         return {
